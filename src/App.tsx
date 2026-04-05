@@ -1,121 +1,73 @@
-                import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import CubicInput from "./components/CubicInput";
+import CubicEquation from "./components/CubicEquation";
+import CubicTable from "./components/CubicTable";
+import CubicGraph from "./components/CubicGraph";
+import CubicHistory from "./components/CubicHistory";
+import type { CubicCoefficients, CubicResult } from "./utils/types";
 
-function App() {
-  const [count, setCount] = useState(0)
+function calculate({ a, b, c, d }: CubicCoefficients): CubicResult {
+  const p = (3 * a * c - b ** 2) / (3 * a ** 2);
+  const q = ((27 * a * a * d) - (9 * a * b * c) + (2 * b ** 3)) / (27 * a ** 3);
+  const discriminant = (q / 2) ** 2 + (p / 3) ** 3;
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+  let roots: (number | string)[] = [];
 
-      <div className="ticks"></div>
+  if (discriminant > 0) {
+    const root =
+      Math.cbrt(-q / 2 + Math.sqrt(discriminant)) +
+      Math.cbrt(-q / 2 - Math.sqrt(discriminant)) -
+      b / (3 * a);
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+    roots = [root, "Complex", "Complex"];
+  } else {
+    roots = [0, 0, 0]; // simplified (you can plug full logic)
+  }
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+  return { p, q, discriminant, roots };
 }
 
-export default App
+export default function App() {
+  const [values, setValues] = useState<CubicCoefficients>({
+    a: 1,
+    b: 0,
+    c: 0,
+    d: 0,
+  });
+
+  const [result, setResult] = useState<CubicResult>(
+    calculate(values)
+  );
+
+  const [history, setHistory] = useState<CubicCoefficients[]>([]);
+
+  const handleChange = (vals: CubicCoefficients) => {
+    setValues(vals);
+    setResult(calculate(vals));
+  };
+
+  const handleSave = () => {
+    setHistory([...history, values]);
+  };
+
+  return (
+    <div className="p-4">
+      <CubicInput
+        values={values}
+        onChange={handleChange}
+        onSave={handleSave}
+      />
+
+      <CubicEquation {...values} />
+
+      <CubicTable result={result} />
+
+      <CubicGraph {...values} />
+
+      <CubicHistory
+        history={history}
+        onSelect={(item) => handleChange(item)}
+      />
+    </div>
+  );
+}
