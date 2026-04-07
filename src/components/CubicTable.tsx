@@ -5,30 +5,30 @@ export default function CubicTable({ result }: { result: CubicResult }) {
     typeof r === "number" ? r.toFixed(2) : r;
 
   return (
-    <div>
-      <table className="table-auto border">
+    <div className="mt-4 border-t pt-4">
+      <table className="w-full text-sm border-collapse">
         <thead>
           <tr>
-            <th>p</th>
-            <th>q</th>
-            <th>discriminant</th>
+            <th className="text-left p-2 border-b">p</th>
+            <th className="text-left p-2 border-b">q</th>
+            <th className="text-left p-2 border-b">discriminant</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{fmt(result.p)}</td>
-            <td>{fmt(result.q)}</td>
-            <td>{fmt(result.discriminant)}</td>
+            <td className="p-2">{fmt(result.p)}</td>
+            <td className="p-2">{fmt(result.q)}</td>
+            <td className="p-2">{fmt(result.discriminant)}</td>
           </tr>
         </tbody>
       </table>
 
-      <table className="table-auto border mt-4">
+      <table className="w-full text-sm border-collapse">
         <thead>
           <tr>
-            <th>root1</th>
-            <th>root2</th>
-            <th>root3</th>
+            <th className="text-left p-2 border-b">root1</th>
+            <th className="text-left p-2 border-b">root2</th>
+            <th className="text-left p-2 border-b">root3</th>
           </tr>
         </thead>
         <tbody>

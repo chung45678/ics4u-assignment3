@@ -35,7 +35,7 @@ export default function App() {
   const [history, setHistory] = useState<CubicCoefficients[]>([]);
 
   return (
-    <div className="p-4">
+    <div className="min-h-screen bg-gray-100 p-6">
       <CubicInput
         setA={setA}
         setB={setB}
@@ -44,17 +44,26 @@ export default function App() {
         setHistory={setHistory}
         history={history}
       />
+      <div className="text-center mt-4">
+        <CubicEquation a={a} b={b} c={c} d={d} />
+      </div>
 
-      <CubicEquation a={a} b={b} c={c} d={d} />
-
-      <CubicTable result = {calculate({a,b,c,d})} />
-
-      <CubicGraph a={a} b={b} c={c} d={d} />
-
-      <CubicHistory
-        history={history}
+      <div className="grid grid-cols-3 gap-6 mt-6"></div>
+        <div className="bg-white rounded-xl shadow p-4">
+          <CubicTable result = {calculate({a,b,c,d})} />
+        </div>
         
-      />
+        <div className="bg-white rounded-xl shadow p-4 flex justify-center">
+          <CubicGraph a={a} b={b} c={c} d={d} />
+        </div>
+          
+        <div className="bg-white rounded-xl shadow p-4">
+          <h3 className="font-semibold mb-2">History</h3>
+          <CubicHistory
+            history={history}
+          />
+        </div>
+
     </div>
   );
 }

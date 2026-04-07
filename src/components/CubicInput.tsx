@@ -31,7 +31,7 @@ export function CubicInput({
   return (
     <div className="w-full flex flex-col items-center justify-center mt-6">
 
-      <h1 className="text-3xl font-bold text-gray-700 mb-4">
+      <h1 className="text-4xl font-bold text-orange-500 mb-6 text-center">
         Cubic Solver
       </h1>
 
@@ -92,10 +92,9 @@ export function CubicInput({
 
         <button
           type="submit"
-          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold 
-             px-4 py-2 rounded-lg transition-transform duration-150 
-             hover:-translate-y-1 cursor-pointer"
-        >
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold 
+                    px-5 py-2 rounded-lg shadow transition"
+          >
           Save
         </button>
       </form>

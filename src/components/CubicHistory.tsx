@@ -6,9 +6,9 @@ type Props = {
 
 export default function CubicHistory({ history }: Props) {
   return (
-    <table className="table-auto border mt-4">
-      <thead>
-        <tr>
+    <table className="w-full text-sm border-collapse">
+      <thead className="bg-orange-500 text-white">
+        <tr className="hover:bg-gray-100 cursor-pointer transition">
           <th>a</th>
           <th>b</th>
           <th>c</th>

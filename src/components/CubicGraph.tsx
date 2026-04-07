@@ -47,5 +47,12 @@ export default function CubicGraph({ a, b, c, d }: CubicCoefficients) {
     ctx.stroke();
   }, [a, b, c, d]);
 
-  return <canvas ref={canvasRef} width={600} height={600} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      width={500}
+      height={500}
+      className="border rounded-lg"
+    />
+  );
 }

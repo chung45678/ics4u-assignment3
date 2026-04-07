@@ -15,5 +15,5 @@ export default function CubicEquation({ a, b, c, d }: CubicCoefficients) {
   if (d !== 0) {
     parts.push(`${d > 0 ? "+" : "-"} ${Math.abs(d)}`);
   }
-  return <h2 className="text-lg">{parts.join(" ")} = 0</h2>;
+  return <h2 className="text-xl font-semibold text-gray-700">{parts.join(" ")} = 0</h2>;
 }
