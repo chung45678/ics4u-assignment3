@@ -6,10 +6,12 @@ export default function CubicGraph({ a, b, c, d }: CubicCoefficients) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) 
+      return;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) 
+      return;
 
     const minX = -10, maxX = 10;
     const minY = -10, maxY = 10;

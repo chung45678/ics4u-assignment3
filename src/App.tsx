@@ -21,7 +21,7 @@ function calculate({ a, b, c, d }: CubicCoefficients): CubicResult {
 
     roots = [root, "Complex", "Complex"];
   } else {
-    roots = [0, 0, 0]; // simplified (you can plug full logic)
+    roots = [0, 0, 0]; 
   }
 
   return { p, q, discriminant, roots };
