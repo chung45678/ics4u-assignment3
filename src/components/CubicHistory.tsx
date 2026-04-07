@@ -2,10 +2,9 @@ import type { CubicCoefficients } from "../utils/types";
 
 type Props = {
   history: CubicCoefficients[];
-  onSelect: (item: CubicCoefficients) => void;
 };
 
-export default function CubicHistory({ history, onSelect }: Props) {
+export default function CubicHistory({ history }: Props) {
   return (
     <table className="table-auto border mt-4">
       <thead>
@@ -20,7 +19,6 @@ export default function CubicHistory({ history, onSelect }: Props) {
         {history.map((item, index) => (
           <tr
             key={index}
-            onClick={() => onSelect(item)}
             className="cursor-pointer hover:bg-gray-200"
           >
             <td>{item.a}</td>

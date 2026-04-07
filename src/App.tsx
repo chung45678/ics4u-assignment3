@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CubicInput from "./components/CubicInput";
+import { CubicInput } from "./components/CubicInput";
 import CubicEquation from "./components/CubicEquation";
 import CubicTable from "./components/CubicTable";
 import CubicGraph from "./components/CubicGraph";
@@ -28,45 +28,32 @@ function calculate({ a, b, c, d }: CubicCoefficients): CubicResult {
 }
 
 export default function App() {
-  const [values, setValues] = useState<CubicCoefficients>({
-    a: 1,
-    b: 0,
-    c: 0,
-    d: 0,
-  });
-
-  const [result, setResult] = useState<CubicResult>(
-    calculate(values)
-  );
-
+  const [a, setA] = useState<number>(0);
+  const [b, setB] = useState<number>(0);
+  const [c, setC] = useState<number>(0);
+  const [d, setD] = useState<number>(0);
   const [history, setHistory] = useState<CubicCoefficients[]>([]);
-
-  const handleChange = (vals: CubicCoefficients) => {
-    setValues(vals);
-    setResult(calculate(vals));
-  };
-
-  const handleSave = () => {
-    setHistory([...history, values]);
-  };
 
   return (
     <div className="p-4">
       <CubicInput
-        values={values}
-        onChange={handleChange}
-        onSave={handleSave}
+        setA={setA}
+        setB={setB}
+        setC={setC}
+        setD={setD}
+        setHistory={setHistory}
+        history={history}
       />
 
-      <CubicEquation {...values} />
+      <CubicEquation a={a} b={b} c={c} d={d} />
 
-      <CubicTable result={result} />
+      <CubicTable result = {calculate({a,b,c,d})} />
 
-      <CubicGraph {...values} />
+      <CubicGraph a={a} b={b} c={c} d={d} />
 
       <CubicHistory
         history={history}
-        onSelect={(item) => handleChange(item)}
+        
       />
     </div>
   );
